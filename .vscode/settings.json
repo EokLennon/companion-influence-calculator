@@ -1,0 +1,16 @@
+{
+    "tailwindCSS.includeLanguages": {
+        "plaintext": "javascript"
+    },
+    "tailwindCSS.experimental.classRegex": [
+        ["styles = \"(.*?)\""],
+        ["styles = '(.*?)'"],
+        ["styles = `(.*?)`"],
+        ["classes = \"(.*?)\""],
+        ["classes = '(.*?)'"],
+        ["classes = `(.*?)`"],
+        ["css = \"(.*?)\""],
+        ["css = '(.*?)'"],
+        ["css = `(.*?)`"],
+    ]
+}
