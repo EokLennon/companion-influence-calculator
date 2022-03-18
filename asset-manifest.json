@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/companion-influence-calculator/static/css/main.676003fa.css",
-    "main.js": "/companion-influence-calculator/static/js/main.3c8fbc38.js",
+    "main.js": "/companion-influence-calculator/static/js/main.910be7e9.js",
     "static/js/787.a16b8da0.chunk.js": "/companion-influence-calculator/static/js/787.a16b8da0.chunk.js",
     "index.html": "/companion-influence-calculator/index.html",
     "main.676003fa.css.map": "/companion-influence-calculator/static/css/main.676003fa.css.map",
-    "main.3c8fbc38.js.map": "/companion-influence-calculator/static/js/main.3c8fbc38.js.map",
+    "main.910be7e9.js.map": "/companion-influence-calculator/static/js/main.910be7e9.js.map",
     "787.a16b8da0.chunk.js.map": "/companion-influence-calculator/static/js/787.a16b8da0.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.676003fa.css",
-    "static/js/main.3c8fbc38.js"
+    "static/js/main.910be7e9.js"
   ]
 }
