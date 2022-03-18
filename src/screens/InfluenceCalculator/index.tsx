@@ -72,7 +72,7 @@ const InfluenceCalculatorScreen = (props: Props) => {
             const v = _.map(QUALITY, (quality) => {
                 const amountRanks: number[] = _.map(
                     _.slice(RANKS, 0, -1), 
-                    (rank) => getGiftsForNextRankByLevel(reaction, quality as Quality, giftRank + 1, rank, level, influence, (bonus/100) + 1)
+                    (rank) => getGiftsForNextRankByLevel(reaction, quality as Quality, giftRank + 1, rank, Number(level), Number(influence), (bonus / 100) + 1)
                 );
                 const obj: InfluenceRow = {
                     giftRank,
@@ -105,7 +105,7 @@ const InfluenceCalculatorScreen = (props: Props) => {
     }
 
     return (
-        <div className='screen-influencecalculator h-screen flex justify-center items-center'>
+        <div className='screen-influencecalculator h-screen flex justify-center'>
             <Card>
                 <Card.Header text='Influence Calculator' />
                 <Card.Body justify='evenly'>
@@ -117,7 +117,7 @@ const InfluenceCalculatorScreen = (props: Props) => {
                             maxLength={2}
                             className='px-1 w-8 text-center'
                             value={level}
-                            onChange={(v) => setLevel(Number(v))}
+                            onChange={setLevel}
                         />
                     </div>
                     <div className=''>
@@ -128,7 +128,7 @@ const InfluenceCalculatorScreen = (props: Props) => {
                             maxLength={4}
                             className='px-1 w-12 text-center'
                             value={influence}
-                            onChange={(v) => setInfluence(Number(v))}
+                            onChange={setInfluence}
                         />
                     </div>
                 </Card.Body>
