@@ -1,5 +1,5 @@
-import classNames from 'classnames';
 import React from 'react';
+import classNames from 'classnames';
 
 type Props = Omit<React.HTMLProps<HTMLInputElement>, 'autocomplete'|'type'|'onChange'> & {
   type?: 'text'|'number'|'letters'|'alphanumeric'
@@ -23,15 +23,18 @@ const TextInput = ({className, type, ...props}: Props) => {
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
+    let value = e.target.value;
+    if (type === 'number' && props.max && value > props.max) value = `${props.max}`;
+    if (type === 'number' && props.min && value < props.min) value = `${props.min}`;
     props.onChange && props.onChange(value);
   }
 
   const classes = classNames(
     'bg-gray-900',
     'border-b-2',
-    'border-cyan-base',
-    'focus:border-cyan-300',
+    'border-gray-700',
+    
+    'focus:border-cyan-base',
     'focus:outline-none'
   );
 

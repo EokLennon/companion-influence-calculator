@@ -3,14 +3,26 @@ import React from 'react';
 
 export interface CardBodyProps {
     className?: string
+    flex?: boolean
     direction?: 'row'|'column'
     justify?: 'start'|'end'|'center'|'between'|'around'|'evenly'
     items?: 'start'|'end'|'center'|'baseline'|'stretch'
+    wrap?: true|'nowrap'|'reverse'
+    reverse?: boolean
 }
 
-const CardBody: React.FC<CardBodyProps> = ({ className = '', direction = 'row', justify = 'start', items = 'baseline', ...props }) => {
+const CardBody: React.FC<CardBodyProps> = ({ 
+    flex = false,
+    className = '', 
+    direction = 'row', 
+    justify = 'start', 
+    items = 'baseline', 
+    wrap = true, 
+    reverse,
+    ...props 
+}) => {
     const classes = classNames(
-        'flex',
+        { 'flex': flex },
         { 'flex-row': direction === 'row' },
         { 'flex-col': direction === 'column' },
         { 'justify-start': justify === 'start' },
@@ -24,6 +36,9 @@ const CardBody: React.FC<CardBodyProps> = ({ className = '', direction = 'row', 
         { 'items-center': items === 'center' },
         { 'items-baseline': items === 'baseline' },
         { 'items-stretch': items === 'stretch' },
+        { 'flex-wrap': wrap === true },
+        { 'flex-nowrap': wrap === 'nowrap' },
+        { 'flex-wrap-reverse': wrap === 'reverse' },
         'p-3'
     );
     return (

@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import InfluenceCalculator from 'screens/InfluenceCalculator';
+import GiftCalculator from 'screens/GiftCalculator';
+import GiftsPerRank from 'screens/GiftsPerRank';
 
-function App() {
+const App = () => {
+  const [active, setActive] = useState('calculator');
+
   return (
     <div className="app">
-      <InfluenceCalculator />
+      {active === 'calculator' && <GiftCalculator />}
+      {active === 'ranks' && <GiftsPerRank />}
     </div>
   );
 }

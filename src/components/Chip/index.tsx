@@ -7,16 +7,21 @@ export interface ChipProps {
     label: string
     color: Colors
     variant: 'contained'|'outlined'
+    className?: string
+    clickable?: boolean
 }
 
-const Chip = ({ label, variant = 'outlined', color = 'gray' }: ChipProps) => {
+const Chip = ({ label, className, variant = 'outlined', color = 'gray', clickable = false }: ChipProps) => {
     const classes = classNames(
-        'cursor-pointer',
+        { 'cursor-pointer': clickable },
+        'select-none',
         'text-center',
         'rounded-full',
-        'w-24',
         'font-medium',
         'border-2',
+
+        'min-w-fit',
+        'px-2',
 
         { 'border-gray-base': color === 'gray' },
         { 'border-cyan-base': color === 'primary' },
@@ -39,11 +44,11 @@ const Chip = ({ label, variant = 'outlined', color = 'gray' }: ChipProps) => {
         { 'bg-blue-base': color === 'favorite' && variant === 'contained' },
         { 'bg-pink-base': color === 'love' && variant === 'contained' },
 
-        { 'text-white': variant === 'contained' },
+        { 'text-white': variant === 'contained' }
     );  
 
     return (
-        <div className={classes}>
+        <div className={`${className} ${classes}`}>
             {label}
         </div>
     )

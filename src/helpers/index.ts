@@ -6,7 +6,6 @@ import { Reaction, Level, Quality, Rank } from 'interfaces/general';
 
 export const getLevel = (level: number): Level | undefined => {
     const levelObj = _.find(COMPANION_LEVEL, (cl) => cl.level === level);
-    console.log(typeof level);
     
     return levelObj;
 }
@@ -44,5 +43,41 @@ export const getGiftsForNextRankByLevel = (reaction: Reaction, giftQuality: Qual
 
     const total = (nextRank.total - minus) / (giftInfluence * multiplier);
     return _.ceil(total, 0);
+}
+
+export const getGiftsForNextRankByCurrentInfluence = (reaction: Reaction, giftQuality: Quality, giftRank: number, currentInfluence: number, multiplier: number = 1): number => {
+    const orderedRanks = _.orderBy(RANKS, ['id'], ['desc']);
+    const currentRank = _.find(orderedRanks, (r) => r.total <= currentInfluence);
+    const nextRank = _.find(RANKS, (r) => r.total > currentInfluence);
+
+    if (!currentRank || !nextRank) return 0;
+
+    const giftInfluence = getGiftInfluence(reaction, giftQuality, giftRank, currentRank.id);
+
+    if (giftInfluence === 0) return 0;
+
+    const total = (nextRank.total - currentInfluence) / (giftInfluence * multiplier);
+    return _.ceil(total, 0);
+}
+
+export const getGiftsForTargetLevel = (reaction: Reaction, giftQuality: Quality, giftRank: number, currentLevel: number, targetLevel: number, influence: number = 0, multiplier: number = 1): number => {
+    const currentInfluence = getInfluenceByLevel(currentLevel) + influence;
+    const targetInfluence = getInfluenceByLevel(targetLevel);
+
+    const orderedRanks = _.orderBy(RANKS, ['id'], ['desc']);
+    const currentRank = _.find(orderedRanks, (r) => r.total <= currentInfluence);
+    const targetRank = _.find(orderedRanks, (r) => r.total <= targetInfluence);
     
+    if (!currentRank || !targetRank) return 0;
+
+    const filteredRanks = _.filter(RANKS, (r) => r.id >= currentRank.id && r.id <= targetRank.id);
+
+    let total = 0;
+    _.forEach(filteredRanks, (fr, i) => {
+        const iInfluence = (fr.id === currentRank.id) ? currentInfluence : fr.total;
+        const totalForRank = getGiftsForNextRankByCurrentInfluence(reaction, giftQuality, giftRank, iInfluence, multiplier);        
+        total += _.ceil(totalForRank, 0);
+    });
+    
+    return total;
 }

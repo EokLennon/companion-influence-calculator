@@ -5,7 +5,6 @@ import _ from 'lodash';
 import { RadioGroup } from '@headlessui/react';
 import Card from 'components/Card';
 import Chip from 'components/Chip';
-import TextInput from 'components/Input';
 import DynamicTable from 'components/DynamicTable';
 
 import { QUALITY, QUALITY_COLOR, RANKS } from 'helpers/constants';
@@ -22,20 +21,7 @@ type InfluenceRow = GiftAmount | {
 
 const InfluenceCalculatorScreen = (props: Props) => {
     const [reaction, setReaction] = useState<Reaction>('love');
-    const [level, setLevel] = useState<number>(1);
-    const [influence, setInfluence] = useState<number>(0);
     const [bonus, setBonus] = useState<number>(0);
-    
-    // const [selectedCompanion, setSelectedCompanion] = useState();
-    // const [filteredCompanions, setFilteredCompanions] = useState<Companion[]>([]);
-    // const [query, setQuery] = useState('');
-    // useEffect(() => {
-    //     let fc: Companion[] = [];
-    //     if (query.length > 3) 
-    //         fc = _.filter(COMPANIONS, (c) => c.name.toLowerCase().includes(query.toLowerCase()));
-    
-    //     setFilteredCompanions(fc);
-    // }, [query]);
 
     const formatGiftType = (v: number, row: any) => {
         return `Rank ${row.giftRank + 1} ${_.capitalize(QUALITY_COLOR[row.quality.toUpperCase()])}`;
@@ -72,7 +58,7 @@ const InfluenceCalculatorScreen = (props: Props) => {
             const v = _.map(QUALITY, (quality) => {
                 const amountRanks: number[] = _.map(
                     _.slice(RANKS, 0, -1), 
-                    (rank) => getGiftsForNextRankByLevel(reaction, quality as Quality, giftRank + 1, rank, Number(level), Number(influence), (bonus / 100) + 1)
+                    (rank) => getGiftsForNextRankByLevel(reaction, quality as Quality, giftRank + 1, rank, 1, 50, (bonus / 100) + 1)
                 );
                 const obj: InfluenceRow = {
                     giftRank,
@@ -105,34 +91,10 @@ const InfluenceCalculatorScreen = (props: Props) => {
     }
 
     return (
-        <div className='screen-influencecalculator h-screen flex justify-center'>
+        <div className='screen-influencecalculator w-screen h-screen flex justify-center'>
             <Card>
-                <Card.Header text='Influence Calculator' />
-                <Card.Body justify='evenly'>
-                    <div>
-                        <label htmlFor='level' className='text-lg mr-3'>Level:</label>
-                        <TextInput 
-                            id='level' 
-                            type='number'
-                            maxLength={2}
-                            className='px-1 w-8 text-center'
-                            value={level}
-                            onChange={setLevel}
-                        />
-                    </div>
-                    <div className=''>
-                        <label htmlFor='influence' className='text-lg mr-3'>Influence Bar:</label>
-                        <TextInput 
-                            id='influence' 
-                            type='number'
-                            maxLength={4}
-                            className='px-1 w-12 text-center'
-                            value={influence}
-                            onChange={setInfluence}
-                        />
-                    </div>
-                </Card.Body>
-                <Card.Body>
+                <Card.Header text='Gifts per rank' />
+                <Card.Body justify='center'>
                     <RadioGroup value={reaction} onChange={setReaction} className='flex items-center'>
                         {_.map(['love', 'favorite', 'like'], (r) => 
                             <RadioGroup.Option key={r} className='mr-4 last:mr-0' value={r}>
@@ -141,7 +103,7 @@ const InfluenceCalculatorScreen = (props: Props) => {
                         )}
                     </RadioGroup>
                 </Card.Body>
-                <Card.Body>
+                <Card.Body justify='center'>
                     <RadioGroup value={bonus} onChange={setBonus} className='flex items-center'>
                         {_.map([0, 10, 20, 30], (r) => 
                             <RadioGroup.Option key={r} className='mr-4 last:mr-0' value={r}>

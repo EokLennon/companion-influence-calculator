@@ -1,7 +1,7 @@
 {
   "homepage": "https://EokLennon.github.io/companion-influence-calculator",
   "name": "companion-influence-calculator",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Companion Influence Calculator for Star Wars: The Old Republic.",
   "author": "Arturo Camargo Mayen",
   "license": "MIT",
@@ -20,6 +20,7 @@
   "dependencies": {
     "@headlessui/react": "^1.5.0",
     "@heroicons/react": "^1.0.6",
+    "@radix-ui/react-slider": "^0.1.4",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
     "@testing-library/user-event": "^13.2.1",
