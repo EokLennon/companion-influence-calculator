@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/companion-influence-calculator/static/css/main.5a5955ff.css",
-    "main.js": "/companion-influence-calculator/static/js/main.5e2cd7a3.js",
+    "main.css": "/companion-influence-calculator/static/css/main.1ed90c8d.css",
+    "main.js": "/companion-influence-calculator/static/js/main.1caf1850.js",
     "static/js/787.a16b8da0.chunk.js": "/companion-influence-calculator/static/js/787.a16b8da0.chunk.js",
     "index.html": "/companion-influence-calculator/index.html",
-    "main.5a5955ff.css.map": "/companion-influence-calculator/static/css/main.5a5955ff.css.map",
-    "main.5e2cd7a3.js.map": "/companion-influence-calculator/static/js/main.5e2cd7a3.js.map",
+    "main.1ed90c8d.css.map": "/companion-influence-calculator/static/css/main.1ed90c8d.css.map",
+    "main.1caf1850.js.map": "/companion-influence-calculator/static/js/main.1caf1850.js.map",
     "787.a16b8da0.chunk.js.map": "/companion-influence-calculator/static/js/787.a16b8da0.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.5a5955ff.css",
-    "static/js/main.5e2cd7a3.js"
+    "static/css/main.1ed90c8d.css",
+    "static/js/main.1caf1850.js"
   ]
 }
