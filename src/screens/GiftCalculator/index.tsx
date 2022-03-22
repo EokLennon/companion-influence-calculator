@@ -21,7 +21,7 @@ type GiftForQuality = {
 } & { rank: number }
 
 const InfluenceCalculatorScreen = (props: Props) => {
-    const [reaction, setReaction] = useState<Reaction>('love');
+    const [reaction, setReaction] = useState<Reaction>('like');
     const [currentLevel, setCurrentLevel] = useState<number>(1);
     const [targetLevel, setTargetLevel] = useState<number>(50);
     const [influence, setInfluence] = useState<number>(0);
@@ -67,7 +67,7 @@ const InfluenceCalculatorScreen = (props: Props) => {
 
     const reactionRGClasses = classNames('mr-1', 'last:mr-0');
     const bonusRGClasses = classNames('mr-1', 'last:mr-0');
-    const giftsClasses = classNames('flex', 'justify-self-center', 'mb-4', 'last:mb-0');
+    //const giftsClasses = classNames('flex', 'justify-self-center', 'mb-4', 'last:mb-0');
 
     return (
         <div className='screen-influencecalculator h-screen flex justify-center'>
@@ -78,26 +78,30 @@ const InfluenceCalculatorScreen = (props: Props) => {
                         <label htmlFor='currentLevel' className='text-lg mr-3'>Current:</label>
                         <TextInput 
                             id='currentLevel' 
-                            type='number'
-                            maxLength={2}
                             className='w-12 text-center'
-                            value={currentLevel}
+                            type='number'
+                            inputMode='numeric'
+                            pattern='[0-9]*'
                             min={1}
                             max={50}
-                            onChange={(v: string) => setCurrentLevel(Number(v))}
+                            maxLength={2}
+                            value={currentLevel}
+                            onValue={(v: string) => setCurrentLevel(Number(v))}
                         />
                     </div>
                     <div className='mx-3'>
                         <label htmlFor='targetLevel' className='text-lg mr-3'>Target:</label>
                         <TextInput 
                             id='targetLevel' 
-                            type='number'
-                            maxLength={2}
                             className='w-12 text-center'
-                            value={targetLevel}
-                            onChange={(v: string) => setTargetLevel(Number(v))}
+                            type='number'
+                            inputMode='numeric'
+                            pattern='[0-9]*'
                             min={1}
                             max={50}
+                            maxLength={2}
+                            value={targetLevel}
+                            onValue={(v: string) => setTargetLevel(Number(v))}
                             disabled={currentLevel === 50}
                         />
                     </div>
@@ -105,19 +109,21 @@ const InfluenceCalculatorScreen = (props: Props) => {
                         <label htmlFor='influence' className='text-lg mr-3'>Influence Bar:</label>
                         <TextInput 
                             id='influence' 
-                            type='number'
-                            maxLength={4}
                             className='w-16 text-center'
-                            value={influence}
+                            type='number'
+                            inputMode='numeric'
+                            pattern='[0-9]*'
                             min={0}
                             max={maxInfluence}
-                            onChange={(v: string) => setInfluence(Number(v))}
+                            maxLength={4}
+                            value={influence}
+                            onValue={(v: string) => setInfluence(Number(v))}
                             disabled={currentLevel === 50}
                         />
                     </div>
                 </Card.Body>
                 <RadioGroup as={Card.Body} value={reaction} onChange={setReaction} flex justify='center'>
-                    {_.map(['love', 'favorite', 'like'], (r) => 
+                    {_.map(['like', 'favorite', 'love'], (r) => 
                         <RadioGroup.Option key={r} className={reactionRGClasses} value={r}>
                             {({ checked }) => 
                                 <Chip 
@@ -145,16 +151,34 @@ const InfluenceCalculatorScreen = (props: Props) => {
                         </RadioGroup.Option>
                     )}
                 </RadioGroup>
-                <Card.Body flex justify='center' className='pb-0'>
-                {_.map(values, (v) => 
-                    <div className='mx-1 mb-3'>
-                        <p title={v.rank === 1 ? 'Up to Level 40' : undefined} className='mb-1 text-center'>Rank {v.rank}</p>
-                        <Chip label={`${v.premium}`} className='w-16 mb-1' variant='outlined' color='like' />
-                        <Chip label={`${v.prototype}`} className='w-16 mb-1' variant='outlined' color='favorite' />
-                        <Chip label={`${v.artifact}`} className='w-16 mb-1' variant='outlined' color='love' />
-                        <Chip label={`${v.legendary}`} className='w-16' variant='outlined' color='secondary' />
-                    </div>
-                )}
+                <Card.Body flex justify='center' className='pb-0' wrap>
+                    {_.map(values, (v) => {
+                        const isThird = v.rank === 3;
+                        if (!isThird) {
+                            return (
+                                <div className='mx-1 mb-3'>
+                                    <p title={v.rank === 1 ? 'Up to Level 40' : undefined} className='mb-1 text-center'>Rank {v.rank}</p>
+                                    <Chip label={`${v.premium}`} className='w-16 mb-2' variant='outlined' color='like' />
+                                    <Chip label={`${v.prototype}`} className='w-16 mb-2' variant='outlined' color='favorite' />
+                                    <Chip label={`${v.artifact}`} className='w-16 mb-2' variant='outlined' color='love' />
+                                    <Chip label={`${v.legendary}`} className='w-16' variant='outlined' color='secondary' />
+                                </div>
+                            )
+                        } else {
+                            return (
+                                <>
+                                <div className='mx-1 mb-3'>
+                                    <p title={v.rank === 1 ? 'Up to Level 40' : undefined} className='mb-1 text-center'>Rank {v.rank}</p>
+                                    <Chip label={`${v.premium}`} className='w-16 mb-2' variant='outlined' color='like' />
+                                    <Chip label={`${v.prototype}`} className='w-16 mb-2' variant='outlined' color='favorite' />
+                                    <Chip label={`${v.artifact}`} className='w-16 mb-2' variant='outlined' color='love' />
+                                    <Chip label={`${v.legendary}`} className='w-16' variant='outlined' color='secondary' />
+                                </div>
+                                <div className='w-full sm:hidden' />
+                                </>
+                            )
+                        }
+                    })}
                 </Card.Body>
             </Card>
         </div>
