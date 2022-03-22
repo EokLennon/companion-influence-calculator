@@ -82,6 +82,8 @@ const InfluenceCalculatorScreen = (props: Props) => {
                             maxLength={2}
                             className='w-12 text-center'
                             value={currentLevel}
+                            min={1}
+                            max={50}
                             onChange={(v: string) => setCurrentLevel(Number(v))}
                         />
                     </div>
@@ -94,6 +96,8 @@ const InfluenceCalculatorScreen = (props: Props) => {
                             className='w-12 text-center'
                             value={targetLevel}
                             onChange={(v: string) => setTargetLevel(Number(v))}
+                            min={1}
+                            max={50}
                             disabled={currentLevel === 50}
                         />
                     </div>
@@ -105,6 +109,7 @@ const InfluenceCalculatorScreen = (props: Props) => {
                             maxLength={4}
                             className='w-16 text-center'
                             value={influence}
+                            min={0}
                             max={maxInfluence}
                             onChange={(v: string) => setInfluence(Number(v))}
                             disabled={currentLevel === 50}
@@ -140,7 +145,7 @@ const InfluenceCalculatorScreen = (props: Props) => {
                         </RadioGroup.Option>
                     )}
                 </RadioGroup>
-                <Card.Body flex justify='center'>
+                <Card.Body flex justify='center' className='pb-0'>
                 {_.map(values, (v) => 
                     <div className='mx-1 mb-3'>
                         <p title={v.rank === 1 ? 'Up to Level 40' : undefined} className='mb-1 text-center'>Rank {v.rank}</p>

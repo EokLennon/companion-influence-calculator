@@ -41,6 +41,7 @@ const TextInput = ({className, type, ...props}: Props) => {
   return (
     <input
       {...props}
+      type={type}
       autoComplete='off'
       className={`component-input ${classes} ${className}`}
       onKeyPress={filterKeys}
